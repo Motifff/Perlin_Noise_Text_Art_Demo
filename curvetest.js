@@ -212,7 +212,7 @@ class noisePoint{
         this.console = new myWordConsole(fstword,this.array);
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
-        this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
+        this.pos = createVector(int(random(windowWidth/10)*10),int(random(windowHeight/10)*10));
 
         this.reset = function(){
             this.array.reset();
