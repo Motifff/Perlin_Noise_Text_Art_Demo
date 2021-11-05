@@ -23,7 +23,7 @@ function setup() {
     background(0,0,100);
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
-    theNoise = new perlinController(20,2);
+    theNoise = new perlinController(1000,2);
     theNoise.generate();
 }
 
@@ -94,7 +94,6 @@ class myWordConsole {
         }
         this.update = function () {
             var lineLen = 0;
-            this.list = [];
             //全部扫一遍获得总长度
             if(this.array.list.length > 0) {
                 for (var i = 0; i < this.array.list.length; i++) {
@@ -129,13 +128,15 @@ class myWordConsole {
                     else {
                         var y = solution.x * x + solution.y;
                     }
-                    this.list[i] = new myWord(x, y, tmpSize, this.word[i], solution.x,1);
+                    if(this.list[i] !== new myWord(x, y, tmpSize, this.word[i], solution.x,1))
+                        this.list[i] = new myWord(x, y, tmpSize, this.word[i], solution.x,1);
                 }
             }
         }
         this.draw = function () {
             for(var i = 0; i < this.list.length; i++) {
-                this.list[i].draw();
+                if(this.list[i].drew === false)
+                    this.list[i].draw();
                 //print("drawn");
             }
         }
@@ -144,6 +145,7 @@ class myWordConsole {
 
 class myWord{
     constructor(x,y,s,str,k,dir) {
+        this.drew = false;
         this.x = x;
         this.y = y;
         this.size = s*(random(1)+0.5);
@@ -152,6 +154,7 @@ class myWord{
         this.ang = abs(atan2( k,1));
         this.dir = dir;
         this.draw = function () {
+            this.drew = true;
             translate(this.x,this.y);
             rotate(this.dir*this.ang);
             textSize(this.size);
@@ -197,8 +200,7 @@ class perlinController{
                 if(this.list[i].life > 0) {
                     this.list[i].update();
                 }else{
-                    let tmp = new noisePoint(this);
-                    this.list[i].reset;
+                    this.list[i] = new noisePoint(this.stepLength);
                 }
             }
         }
@@ -214,22 +216,15 @@ class noisePoint{
         this.color = createVector(int(random(360)),100,100);
         this.pos = createVector(int(random(windowWidth/10)*10),int(random(windowHeight/10)*10));
 
-        this.reset = function(){
-            this.array.reset();
-            this.console.reset(this.array);
-            this.life = int(random(500))+100;
-            this.color = createVector(int(random(360)),100,100);
-            this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
-        }
         this.update = function () {
             var arg = 0.0;
-            arg = noise(this.pos.x/this.scale,this.pos.y/this.scale) *2 *PI;
+            arg = noise(this.pos.x/windowWidth,this.pos.y/windowHeight) *2 *PI;
             this.pos.x += cos(arg)*this.step;
             this.pos.y += sin(arg)*this.step;
             this.life -= 1;
             this.array.updateByNoise(this.pos.x,this.pos.y);
             this.array.draw();
-            if(this.array.list.length>30){
+            if(this.array.list.length>5){
                 this.console.update();
                 this.console.draw();
             }
