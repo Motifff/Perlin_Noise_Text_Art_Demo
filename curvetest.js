@@ -233,6 +233,9 @@ class noisePoint{
                 this.console.update();
                 this.console.draw();
             }
+            if(this.pos.x>windowWidth || this.pos.x<0 || this.pos.y>windowHeight || this.pos.y<0){
+                this.life = 0;
+            }
         }
     }
 }
