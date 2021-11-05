@@ -198,7 +198,7 @@ class perlinController{
                     this.list[i].update();
                 }else{
                     let tmp = new noisePoint(this);
-                    this.list[i] = new noisePoint(this.stepLength);
+                    this.list[i].reset;
                 }
             }
         }
