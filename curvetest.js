@@ -218,7 +218,7 @@ class perlinController{
         this.stepLength = len;
         this.generate = function () {
             while(this.list.length < this.maxNum){
-                this.list[this.list.length] = new noisePoint(this.stepLength);
+                this.list[this.list.length] = new noisePoint(random(3)+2);
             }
         }
         this.update = function () {
@@ -226,7 +226,7 @@ class perlinController{
                 if(this.list[i].life > 0) {
                     this.list[i].update();
                 }else{
-                    this.list[i] = new noisePoint(this.stepLength);
+                    this.list[i] = new noisePoint(random(3)+2);
                 }
             }
         }
