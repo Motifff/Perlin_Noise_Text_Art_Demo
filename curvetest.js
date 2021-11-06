@@ -34,7 +34,7 @@ function colorMap(a){
 function setup() {
     var cvs = createCanvas(windowWidth, windowHeight);
     cvs.mouseReleased(detect);
-    frameRate(30);
+    //frameRate(30);
     noStroke();
     colorMode(HSB,360,100,100,1);
     ellipseMode(CENTER);
