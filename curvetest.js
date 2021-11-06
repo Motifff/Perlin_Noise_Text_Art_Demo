@@ -39,7 +39,7 @@ function setup() {
     //colorMode(HSB,360,100,100,1);
     ellipseMode(CENTER);
     fill(100);
-    background(0,0,100);
+    background(255,255,255);
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
     theNoise = new perlinController(200,2);
@@ -70,7 +70,7 @@ class myPoints{
             if(this.list.length>0) {
                 for(var i = 1; i < this.list.length - 1; i++) {
                     fill(this.color.x,this.color.y,this.color.z);
-                    stroke(360,0,0);
+                    stroke(10,10,10,0.5);
                     beginShape()
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
