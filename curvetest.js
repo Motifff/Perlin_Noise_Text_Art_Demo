@@ -162,7 +162,8 @@ class myWordConsole {
                 //print("drawn");
             }
             */
-           this.list[this.list.length-1].draw();
+            if(this.list.length>0)
+                this.list[this.list.length-1].draw();
         }
     }
 }
