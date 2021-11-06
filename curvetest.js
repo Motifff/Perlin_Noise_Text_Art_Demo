@@ -106,7 +106,7 @@ class myWordConsole {
         this.word = word;
         this.wordPos = 0;
         this.maxLength = 5;
-        this.lowDis = 25;
+        this.lowDis = 10;
         this.list = [];
         this.currentPos = 0;
         this.color = colorMap(int(random(3)));
