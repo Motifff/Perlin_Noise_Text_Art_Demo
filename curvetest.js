@@ -6,7 +6,7 @@ var count = 0;
 var sensitivity = 3;
 var doubvarouch = false;
 var myFont;
-var tmpSize = 20;
+var tmpSize = 10;
 var fstword = "滚滚长江东逝水，浪花淘尽英雄。是非成败转头空。青山依旧在，几度夕阳红。" +
     "白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢。古今多少事，都付笑谈中。";
 
@@ -42,7 +42,7 @@ function setup() {
     background(0,0,100);
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
-    theNoise = new perlinController(1000,2);
+    theNoise = new perlinController(200,2);
     theNoise.generate();
     imitateImage.resize(windowWidth,windowWidth/imitateImage.width*imitateImage.height);
 }
