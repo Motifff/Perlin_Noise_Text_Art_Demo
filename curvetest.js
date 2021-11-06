@@ -181,7 +181,7 @@ class myWord{
             rotate(this.dir*this.ang);
             textSize(this.size);
             //fill(random(360),100,100);
-            fill(this.color.x,this.color.y,this.color.z);
+            fill(this.color);
             text(this.word, 0, 0);
             rotate(-this.dir*this.ang);
             translate(-this.x,-this.y);
