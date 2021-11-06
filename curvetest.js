@@ -155,11 +155,14 @@ class myWordConsole {
             }
         }
         this.draw = function () {
+            /*
             for(let i = 0; i < this.list.length; i++) {
                 if(this.list[i].drew === false)
                     this.list[i].draw();
                 //print("drawn");
             }
+            */
+           this.list[this.list.length-1].draw();
         }
     }
 }
