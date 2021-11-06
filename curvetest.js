@@ -1,5 +1,6 @@
 var inputArray;
 var inputWord;
+var imitateImage;
 var theNoise;
 var count = 0;
 var sensitivity = 3;
@@ -11,6 +12,7 @@ var fstword = "滚滚长江东逝水，浪花淘尽英雄。是非成败转头�
 
 function preload() {
     //myFont = loadFont('assets/fzdys.ttf');
+    imitateImage = loadImage('assets/1.jpg');
 }
 
 function colorMap(a){
@@ -42,6 +44,7 @@ function setup() {
     inputWord = new myWordConsole(fstword);
     theNoise = new perlinController(50,2);
     theNoise.generate();
+    imitateImage.resize(windowWidth,windowWidth/imitateImage.width*imitateImage.height);
 }
 
 class myPoints{
@@ -173,6 +176,7 @@ class myWord{
         this.dir = dir;
         this.color = inColor;
         this.draw = function () {
+            this.color = imitateImage.get(this.x,this.y);
             translate(this.x,this.y);
             rotate(this.dir*this.ang);
             textSize(this.size);
