@@ -42,7 +42,7 @@ function setup() {
     background(0,0,100);
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
-    theNoise = new perlinController(50,2);
+    theNoise = new perlinController(1000,2);
     theNoise.generate();
     imitateImage.resize(windowWidth,windowWidth/imitateImage.width*imitateImage.height);
 }
