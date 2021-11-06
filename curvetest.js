@@ -36,7 +36,7 @@ function setup() {
     cvs.mouseReleased(detect);
     //frameRate(30);
     noStroke();
-    colorMode(HSB,360,100,100,1);
+    //colorMode(HSB,360,100,100,1);
     ellipseMode(CENTER);
     fill(100);
     background(0,0,100);
