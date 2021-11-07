@@ -37,10 +37,20 @@ function setup() {
     background(255,255,255);
     imitateImage = createImage(windowWidth,windowHeight);
 
-    imitateImage0.resize(windowWidth/3,windowHeight);
+    //imitateImage0.resize(windowWidth/3,windowHeight);
+    imitateImage0.resize(windowWidth,windowHeight);
     imitateImage1.resize(windowWidth/3,windowHeight);
     imitateImage2.resize(windowWidth/3,windowHeight);
 
+    imitateImage.loadPixels();
+    for(let i = 0 ;i < windowWidth; i++) {
+        for(let j = 0; j< windowWidth;j++){
+            let c = imitateImage0.get(i,j);
+            imitateImage.set(i,j,c);
+        }
+    }
+    imitateImage.updatePixels();
+    /*
     imitateImage.loadPixels();
     for(let i = 0 ;i < windowWidth; i++){
         for(let j = 0; j< windowHeight; j++){
@@ -57,10 +67,11 @@ function setup() {
         }
     }
     imitateImage.updatePixels();
+    */
 
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
-    theNoise = new perlinController(3000,2);
+    theNoise = new perlinController(600,2);
     theNoise.generate();
 
     rhythm[0] = rhythm1;
@@ -94,7 +105,7 @@ class myPoints{
             if(this.list.length>0) {
                 for(var i = 1; i < this.list.length - 1; i++) {
                     fill(this.color.x,this.color.y,this.color.z);
-                    stroke(10,10,10,0.5);
+                    stroke(10,10,10,0.2);
                     beginShape()
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
@@ -261,7 +272,7 @@ class perlinController{
 //actually this the brush place
 class noisePoint{
     constructor(stepLength) {
-        this.step = stepLength;
+        this.step = stepLength*2;
         this.scale = 800.0;
         this.array = new myPoints();
         this.life = int(random(500))+100;
