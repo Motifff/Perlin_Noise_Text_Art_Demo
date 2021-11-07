@@ -64,6 +64,8 @@ function setup() {
     rhythm[0] = rhythm1;
     rhythm[1] = rhythm2;
     rhythm[2] = rhythm3;
+
+    console.log(rhythm);
 }
 
 class myPoints{
@@ -168,7 +170,8 @@ class myWordConsole {
                     else {
                         var y = solution.x * x + solution.y;
                     }
-                    this.list[this.list.length] = new myWord(x, y, tmpSize, this.word[this.wordPos], solution.x,1,this.color);
+                    print(this.word);
+                    this.list[this.list.length] = new myWord(x, y, tmpSize, rhythm[this.word][this.wordPos], solution.x,1,this.color);
                     this.wordPos += 1;
                 }
             }
@@ -261,8 +264,8 @@ class noisePoint{
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
         this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
-        this.area = int(this.pos/windowWidth);
-        this.console = new myWordConsole(rhythm[this.area],this.array);
+        this.area = int(this.pos/(windowWidth/3));
+        this.console = new myWordConsole(this.area,this.array);
 
         this.update = function () {
             var arg = 0.0;
