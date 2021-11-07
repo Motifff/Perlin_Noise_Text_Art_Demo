@@ -272,7 +272,7 @@ class noisePoint{
             this.life -= 1;
             this.array.updateByNoise(this.pos.x,this.pos.y);
             this.array.draw();
-            if(this.array.list.length>1){
+            if(this.array.list.length>2){
                 this.console.update();
                 this.console.draw();
             }
