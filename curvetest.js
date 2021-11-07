@@ -104,8 +104,8 @@ class myPoints{
         this.draw = function () {
             if(this.list.length>0) {
                 for(var i = 1; i < this.list.length - 1; i++) {
-                    fill(255,255,255,0);
-                    stroke(255,255,255,0);
+                    fill(255,255,255,0.5);
+                    stroke(255,255,255,0.5);
                     beginShape()
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
