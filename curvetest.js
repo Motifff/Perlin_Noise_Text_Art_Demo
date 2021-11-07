@@ -20,7 +20,6 @@ var rhythm3 = "孤山寺北贾亭西，水面初平云脚低。几处早莺争�
 
 function preload() {
     //myFont = loadFont('assets/fzdys.ttf');
-    imitateImage = loadImage('assets/0.jpg');
     imitateImage0 = loadImage('assets/0.jpg');
     imitateImage1 = loadImage('assets/1.jpg');
     imitateImage2 = loadImage('assets/2.jpg');
@@ -36,36 +35,40 @@ function setup() {
     ellipseMode(CENTER);
     fill(100);
     background(255,255,255);
+    imitateImage = createImage(windowWidth,windowWidth/3);
+
+    imitateImage.loadPixels();
+    for(let i = 0 ;i < windowWidth; i++){
+        for(let j = 0; j< windowWidth/3; j++){
+            if(i < windowWidth/3){
+                var c = imitateImage0.get(i,j);
+                imitateImage.set(i,j,c);
+            }else if(i < windowWidth/3 *2){
+                var c = imitateImage1.get(i-width/3,j);
+                imitateImage.set(i,j,c);
+            }else{
+                var c = imitateImage2.get(i-width/3*2,j);
+                imitateImage.set(i,j,c);
+            }
+        }
+    }
+    imitateImage.updatePixels();
+
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
     theNoise = new perlinController(2000,2);
     theNoise.generate();
 
-    imitateImage.resize(windowWidth,windowHeight);
     imitateImage0.resize(windowWidth/3,windowWidth/3);
     imitateImage1.resize(windowWidth/3,windowWidth/3);
     imitateImage2.resize(windowWidth/3,windowWidth/3);
-
-    for(let i = 0 ;i < windowWidth; i++){
-        for(let j = 0; j< windowHeight; j++){
-            if(i < windowWidth/3){
-                let c = imitateImage0.get(i,j);
-                imitateImage.set(i,j,c);
-            }else if(i < windowWidth/3 *2){
-                let c = imitateImage1.get(i,j);
-                imitateImage.set(i,j,c);
-            }else{
-                let c = imitateImage2.get(i,j);
-                imitateImage.set(i,j,c);
-            }
-        }
-    }
 
     rhythm[0] = rhythm1;
     rhythm[1] = rhythm2;
     rhythm[2] = rhythm3;
     print(windowWidth," ",windowHeight);
     console.log(rhythm);
+    image(imitateImage,0,300);
 }
 
 class myPoints{
@@ -263,7 +266,7 @@ class noisePoint{
         this.array = new myPoints();
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
-        this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
+        this.pos = createVector(int(random(windowWidth)),int(random(windowWidth/3)));
         this.area = int(this.pos.x/(windowWidth/3));
         this.console = new myWordConsole(this.area,this.array);
 
@@ -279,7 +282,7 @@ class noisePoint{
                 this.console.update();
                 this.console.draw();
             }
-            if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>windowHeight || this.pos.y<0){
+            if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>windowWidth/3 || this.pos.y<0){
                 this.life = 0;
                 print(this.pos.x,"+",this.pos.y,"+",this.area);
                 print("killed");
