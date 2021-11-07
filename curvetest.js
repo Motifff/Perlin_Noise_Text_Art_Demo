@@ -1,6 +1,9 @@
 var inputArray;
 var inputWord;
 var imitateImage;
+var imitateImage0;
+var imitateImage1;
+var imitateImage2;
 var theNoise;
 var count = 0;
 var sensitivity = 3;
@@ -10,26 +13,19 @@ var tmpSize = 10;
 var fstword = "滚滚长江东逝水，浪花淘尽英雄。是非成败转头空。青山依旧在，几度夕阳红。" +
     "白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢。古今多少事，都付笑谈中。";
 
+var rhythm = [];    
+var rhythm1 = "海客谈瀛洲，烟涛微茫信难求； 越人语天姥，云霞明灭或可睹。 天姥连天向天横，势拔五岳掩赤城。 天台四万八千丈，对此欲倒东南倾。 我欲因之梦吴越，一夜飞度镜湖月。 湖月照我影，送我至剡溪。 谢公宿处今尚在，渌水荡漾清猿啼。 脚著谢公屐，身登青云梯。 半壁见海日，空中闻天鸡。 千岩万转路不定，迷花倚石忽已暝。 熊咆龙吟殷岩泉，栗深林兮惊层巅。 云青青兮欲雨，水澹澹兮生烟。 列缺霹雳，丘峦崩摧。 洞天石扉，訇然中开。 青冥浩荡不见底，日月照耀金银台。 霓为衣兮风为马，云之君兮纷纷而来下。 虎鼓瑟兮鸾回车，仙之人兮列如麻。 忽魂悸以魄动，恍惊起而长嗟。 惟觉时之枕席，失向来之烟霞。 世间行乐亦如此，古来万事东流水。 别君去兮何时还？且放白鹿青崖间。须行即骑访名山。 安能摧眉折腰事权贵，使我不得开心颜！";
+var rhythm2 = "吾友太乙子，餐霞卧赤城。欲寻华顶去，不惮恶溪名。歇马凭云宿，扬帆截海行。高高翠微里，遥见石梁横。";
+var rhythm3 = "孤山寺北贾亭西，水面初平云脚低。几处早莺争暖树，谁家新燕啄春泥。乱花渐欲迷人眼，浅草才能没马蹄。最爱湖东行不足，绿杨阴里白沙堤。";
+
 function preload() {
     //myFont = loadFont('assets/fzdys.ttf');
-    imitateImage = loadImage('assets/1.jpg');
+    imitateImage = loadImage('assets/0.jpg');
+    imitateImage0 = loadImage('assets/0.jpg');
+    imitateImage1 = loadImage('assets/1.jpg');
+    imitateImage2 = loadImage('assets/2.jpg');
 }
 
-function colorMap(a){
-    var re;
-    switch(a){
-        case 0:
-            re = createVector(0,0,100);
-            break;
-        case 1:
-            re = createVector(205,100,100);
-            break;
-        case 2:
-            re = createVector(236,100,100);
-        break;
-    }
-    return re;
-}
 
 function setup() {
     var cvs = createCanvas(windowWidth, windowHeight);
@@ -44,7 +40,30 @@ function setup() {
     inputWord = new myWordConsole(fstword);
     theNoise = new perlinController(2000,2);
     theNoise.generate();
-    imitateImage.resize(windowWidth,windowWidth/imitateImage.width*imitateImage.height);
+
+    imitateImage.resize(windowWidth,windowHeight);
+    imitateImage0.resize(windowWidth/3,windowWidth/3);
+    imitateImage1.resize(windowWidth/3,windowWidth/3);
+    imitateImage2.resize(windowWidth/3,windowWidth/3);
+
+    for(let i = 0 ;i < windowWidth; i++){
+        for(let j = 0; j< windowWidth/3; j++){
+            if(i < windowWidth/3){
+                let c = imitateImage0.get(i,j);
+                imitateImage.set(i,j,c);
+            }else if(i < windowWidth/3 *2){
+                let c = imitateImage1.get(i,j);
+                imitateImage.set(i,j,c);
+            }else{
+                let c = imitateImage1.get(i,j);
+                imitateImage.set(i,j,c);
+            }
+        }
+    }
+
+    rhythm[0] = rhythm1;
+    rhythm[1] = rhythm2;
+    rhythm[2] = rhythm3;
 }
 
 class myPoints{
@@ -109,7 +128,7 @@ class myWordConsole {
         this.lowDis = 10;
         this.list = [];
         this.currentPos = 0;
-        this.color = colorMap(int(random(3)));
+        this.color = color(0,0,0);
         this.reset = function (theArray) {
             this.array = theArray;
             this.list = [];
@@ -232,15 +251,18 @@ class perlinController{
         }
     }
 }
+
+//actually this the brush place
 class noisePoint{
     constructor(stepLength) {
         this.step = stepLength;
         this.scale = 800.0;
         this.array = new myPoints();
-        this.console = new myWordConsole(fstword,this.array);
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
         this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
+        this.area = int(this.pos/windowWidth);
+        this.console = new myWordConsole(rhythm[this.area],this.array);
 
         this.update = function () {
             var arg = 0.0;
@@ -254,7 +276,7 @@ class noisePoint{
                 this.console.update();
                 this.console.draw();
             }
-            if(this.pos.x>windowWidth || this.pos.x<0 || this.pos.y>windowHeight || this.pos.y<0){
+            if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>windowHeight || this.pos.y<0){
                 this.life = 0;
             }
         }
