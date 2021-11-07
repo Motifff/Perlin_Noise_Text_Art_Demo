@@ -38,14 +38,14 @@ function setup() {
     imitateImage = createImage(windowWidth,windowHeight);
 
     //imitateImage0.resize(windowWidth/3,windowHeight);
-    imitateImage0.resize(windowWidth,windowHeight);
-    imitateImage1.resize(windowWidth/3,windowHeight);
-    imitateImage2.resize(windowWidth/3,windowHeight);
+    imitateImage2.resize(windowWidth,windowHeight);
+    //imitateImage1.resize(windowWidth/3,windowHeight);
+    //imitateImage2.resize(windowWidth/3,windowHeight);
 
     imitateImage.loadPixels();
     for(let i = 0 ;i < windowWidth; i++) {
         for(let j = 0; j< windowWidth;j++){
-            let c = imitateImage0.get(i,j);
+            let c = imitateImage2.get(i,j);
             imitateImage.set(i,j,c);
         }
     }
