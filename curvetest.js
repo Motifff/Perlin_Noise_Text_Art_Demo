@@ -85,7 +85,7 @@ function setup() {
 class myPoints{
     constructor() {
         this.list = [];
-        this.color = createVector(random(360),100,100);
+        this.color = createVector(100,100,100);
         this.prePos = createVector(0,0);
         this.color = createVector(random(360),100,100);
         this.updateByMouse = function () {
@@ -104,8 +104,8 @@ class myPoints{
         this.draw = function () {
             if(this.list.length>0) {
                 for(var i = 1; i < this.list.length - 1; i++) {
-                    fill(this.color.x,this.color.y,this.color.z);
-                    stroke(10,10,10,0.2);
+                    fill(255,255,255);
+                    stroke(255,255,255,0.2);
                     beginShape()
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
                     curveVertex(this.list[i-1].x, this.list[i-1].y);
