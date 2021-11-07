@@ -35,11 +35,15 @@ function setup() {
     ellipseMode(CENTER);
     fill(100);
     background(255,255,255);
-    imitateImage = createImage(windowWidth,windowWidth/3);
+    imitateImage = createImage(windowWidth,windowHeight);
+
+    imitateImage0.resize(windowWidth/3,windowHeight);
+    imitateImage1.resize(windowWidth/3,windowHeight);
+    imitateImage2.resize(windowWidth/3,windowHeight);
 
     imitateImage.loadPixels();
     for(let i = 0 ;i < windowWidth; i++){
-        for(let j = 0; j< windowWidth/3; j++){
+        for(let j = 0; j< windowHeight; j++){
             if(i < windowWidth/3){
                 var c = imitateImage0.get(i,j);
                 imitateImage.set(i,j,c);
@@ -56,19 +60,15 @@ function setup() {
 
     inputArray = new myPoints();
     inputWord = new myWordConsole(fstword);
-    theNoise = new perlinController(2000,2);
+    theNoise = new perlinController(3000,2);
     theNoise.generate();
-
-    imitateImage0.resize(windowWidth/3,windowWidth/3);
-    imitateImage1.resize(windowWidth/3,windowWidth/3);
-    imitateImage2.resize(windowWidth/3,windowWidth/3);
 
     rhythm[0] = rhythm1;
     rhythm[1] = rhythm2;
     rhythm[2] = rhythm3;
-    print(windowWidth," ",windowHeight);
-    console.log(rhythm);
-    image(imitateImage,0,300);
+    //print(windowWidth," ",windowHeight);
+    //console.log(rhythm);
+    //image(imitateImage,0,windowWidth/3);
 }
 
 class myPoints{
@@ -173,7 +173,7 @@ class myWordConsole {
                     else {
                         var y = solution.x * x + solution.y;
                     }
-                    print(this.word);
+                    //print(this.word);
                     this.list[this.list.length] = new myWord(x, y, tmpSize, rhythm[this.word][this.wordPos], solution.x,1,this.color);
                     this.wordPos += 1;
                 }
@@ -233,7 +233,7 @@ function detect() {
     inputArray.color = createVector(random(360),100,100);
     inputWord.update();
     inputWord.draw();
-    print("relesed");
+    //print("relesed");
 }
 
 class perlinController{
@@ -266,7 +266,7 @@ class noisePoint{
         this.array = new myPoints();
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
-        this.pos = createVector(int(random(windowWidth)),int(random(windowWidth/3)));
+        this.pos = createVector(int(random(windowWidth)),int(random(imitateImage.height)));
         this.area = int(this.pos.x/(windowWidth/3));
         this.console = new myWordConsole(this.area,this.array);
 
@@ -282,10 +282,10 @@ class noisePoint{
                 this.console.update();
                 this.console.draw();
             }
-            if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>windowWidth/3 || this.pos.y<0){
+            if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>imitateImage.height || this.pos.y<0){
                 this.life = 0;
-                print(this.pos.x,"+",this.pos.y,"+",this.area);
-                print("killed");
+                //print(this.pos.x,"+",this.pos.y,"+",this.area);
+                //print("killed");
             }
         }
     }
