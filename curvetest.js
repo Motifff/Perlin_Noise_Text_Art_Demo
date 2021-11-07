@@ -47,7 +47,7 @@ function setup() {
     imitateImage2.resize(windowWidth/3,windowWidth/3);
 
     for(let i = 0 ;i < windowWidth; i++){
-        for(let j = 0; j< windowWidth/3; j++){
+        for(let j = 0; j< windowHeight; j++){
             if(i < windowWidth/3){
                 let c = imitateImage0.get(i,j);
                 imitateImage.set(i,j,c);
@@ -55,7 +55,7 @@ function setup() {
                 let c = imitateImage1.get(i,j);
                 imitateImage.set(i,j,c);
             }else{
-                let c = imitateImage1.get(i,j);
+                let c = imitateImage2.get(i,j);
                 imitateImage.set(i,j,c);
             }
         }
@@ -64,7 +64,7 @@ function setup() {
     rhythm[0] = rhythm1;
     rhythm[1] = rhythm2;
     rhythm[2] = rhythm3;
-
+    print(windowWidth," ",windowHeight);
     console.log(rhythm);
 }
 
@@ -264,7 +264,7 @@ class noisePoint{
         this.life = int(random(500))+100;
         this.color = createVector(int(random(360)),100,100);
         this.pos = createVector(int(random(windowWidth)),int(random(windowHeight)));
-        this.area = int(this.pos/(windowWidth/3));
+        this.area = int(this.pos.x/(windowWidth/3));
         this.console = new myWordConsole(this.area,this.array);
 
         this.update = function () {
@@ -281,6 +281,8 @@ class noisePoint{
             }
             if(this.pos.x>windowWidth/3*(this.area+1) || this.pos.x<windowWidth/3*(this.area) || this.pos.y>windowHeight || this.pos.y<0){
                 this.life = 0;
+                print(this.pos.x,"+",this.pos.y,"+",this.area);
+                print("killed");
             }
         }
     }
